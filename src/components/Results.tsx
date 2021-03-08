@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { RequestStore } from '../redux';
 import { makeRequest } from '../data/request';
 import { ResultsList } from './ResultsList';

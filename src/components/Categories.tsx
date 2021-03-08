@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
 const placeholderOptions = L1Categories.map(cat => cat.title);
 const selectedCategorySelector = (store: RequestStore) => store.category;
 
+const keyExtractor = (item: Category) => item.alias;
+
 export const Categories: FC = () => {
   const dispatch = useDispatch();
   const [showOptions, showOptionsSet] = useState(false);
@@ -95,6 +97,7 @@ export const Categories: FC = () => {
         data={data}
         renderItem={renderItem}
         horizontal
+        keyExtractor={keyExtractor}
       />}
     </View>
   );

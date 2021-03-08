@@ -8,6 +8,7 @@ interface YelpTextInputProps {
   onBlur?: () => void;
   onFocus?: () => void;
   rightElement?: () => ReactNode;
+  disabled?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -31,7 +32,8 @@ export const YelpTextInput: FC<YelpTextInputProps> = props => {
     text,
     rightElement,
     onBlur,
-    onFocus
+    onFocus,
+    disabled
   } = props;
   const [placeholderIndex, placeholderIndexSet] = useState(0);
 
@@ -52,6 +54,7 @@ export const YelpTextInput: FC<YelpTextInputProps> = props => {
         onChangeText={onTextChanged}
         style={styles.input}
         onFocus={onFocus}
+        editable={!disabled}
       />
       {!!rightElement && rightElement()}
     </View>

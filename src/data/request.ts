@@ -1,12 +1,12 @@
 import { Dispatch } from 'redux';
-import { GraphQLClient, request, gql } from 'graphql-request';
+import { GraphQLClient, gql } from 'graphql-request';
 import { Actions } from '../redux/actions';
 import { Coordinates, RequestData } from './types';
 
 interface RequestParams {
   query: string;
   category?: string;
-  location: string | Coordinates;
+  location?: string | Coordinates;
 }
 
 const ENDPOINT = 'https://api.yelp.com/v3/graphql';
@@ -41,7 +41,7 @@ export async function makeRequest(
   } catch (e) {
     const errorAction: Actions = {
       type: 'SET_ERROR',
-      payload: e.response?.errors?.[0]?.message || 'Error',
+      payload: e.response?.errors?.[0]?.message || e?.message || 'Error',
     };
 
     dispatch(errorAction);
@@ -52,10 +52,9 @@ function createRequestQuery(params: RequestParams): string {
   // location: "san francisco"
   // latitude: 37.761591
   // longitude: -122.4080729
-  (params);
 
   const locationStr = createLocationQuery(params.location);
-  const categoryStr = params.category ? `categories: "${params.category}"` : ''
+  const categoryStr = params.category ? `categories: "${params.category}"` : '';
   return gql`
     {
       search(term: "${params.query}"
@@ -81,7 +80,10 @@ function createRequestQuery(params: RequestParams): string {
   `;
 }
 
-function createLocationQuery(location: string | Coordinates): string {
+function createLocationQuery(location?: string | Coordinates): string {
+  if (!location) {
+    return '';
+  }
   if (typeof location === 'string') {
     const locStr = location as string;
     return `location: "${locStr}"`;

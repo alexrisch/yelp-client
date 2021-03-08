@@ -94,6 +94,7 @@ export const LocationBar: FC = () => {
         onBlur={updateRequest}
         rightElement={renderRight}
         onFocus={handleFocus}
+        disabled={useCurrent}
       />
     </View>
   );
