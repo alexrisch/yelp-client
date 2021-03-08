@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 35,
     backgroundColor: 'cyan'
+  },
+  container: {
+    height: 40
+  },
+  optionsContainer: {
+    height: 120
   }
 })
 
@@ -78,7 +84,7 @@ export const Categories: FC = () => {
 
 
   return (
-    <View style={{height: showOptions ? 120 : 40}}>
+    <View style={showOptions ? styles.optionsContainer : styles.container}>
       <YelpTextInput
         placeholderOptions={placeholderOptions}
         onFocus={onFocus}

@@ -1,5 +1,5 @@
 import React, { Component, FC, ReactElement, ReactNode, useEffect, useState } from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 
 interface YelpTextInputProps {
   placeholderOptions: string[];
@@ -9,6 +9,20 @@ interface YelpTextInputProps {
   onFocus?: () => void;
   rightElement?: () => ReactNode;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    height: 40,
+    alignItems: 'center'
+  },
+  input: {
+    flex: 1
+  }
+});
 
 export const YelpTextInput: FC<YelpTextInputProps> = props => {
   const {
@@ -30,20 +44,13 @@ export const YelpTextInput: FC<YelpTextInputProps> = props => {
   }, [placeholderIndex]);
 
   return (
-    <View style={{
-      width: '100%',
-      borderBottomColor: 'grey',
-      borderBottomWidth: 1,
-      flexDirection: 'row',
-      height: 40,
-      alignItems: 'center'
-    }}>
+    <View style={styles.container}>
       <TextInput
         onBlur={onBlur}
         placeholder={placeholderOptions[placeholderIndex]}
         value={text}
         onChangeText={onTextChanged}
-        style={{flex: 1}}
+        style={styles.input}
         onFocus={onFocus}
       />
       {!!rightElement && rightElement()}

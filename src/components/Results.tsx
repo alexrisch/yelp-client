@@ -9,6 +9,12 @@ import { ResultsMap } from './ResultsMap';
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row', width: '100%', justifyContent: 'space-evenly'
+  },
+  container: {
+    flex: 1
+  },
+  errorText: {
+    color: 'red'
   }
 });
 
@@ -46,8 +52,8 @@ export const Results: FC = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
-      {!!error && <Text style={{color: 'red'}}>
+    <View style={styles.container}>
+      {!!error && <Text style={styles.errorText}>
         {error}
       </Text>}
       {loading && <ActivityIndicator />}

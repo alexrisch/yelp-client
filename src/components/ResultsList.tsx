@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { FlatList, ListRenderItem, Text, View } from 'react-native';
+import { FlatList, ListRenderItem, StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Business } from '../data/types';
 import { RequestStore } from '../redux';
@@ -8,11 +8,18 @@ const resultsSelector = (store: RequestStore) => {
   return store.results?.search?.business || [];
 }
 
-const keyExtractor = (item: Business) => JSON.stringify(item.coordinates || {});
+const styles = StyleSheet.create({
+  itemContainer: {
+    paddingVertical: 8
+  }
+})
 
+const keyExtractor = (business: Business) => {
+  return business.name + business.coordinates?.latitude + business.coordinates?.longitude
+}
 const RenderResult: ListRenderItem<Business> = ({item}) => {
   return (
-    <View style={{paddingVertical: 8}}>
+    <View style={styles.itemContainer}>
       <Text>
         {item.name}
       </Text>
