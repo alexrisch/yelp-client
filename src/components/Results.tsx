@@ -38,7 +38,7 @@ export const Results: FC = () => {
   const [tab, tabSet] = useState(0);
 
   useEffect(() => {
-    if (query && location) {
+    if (location) {
       makeRequest(dispatch, {
         query: query || '',
         category,

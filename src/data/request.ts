@@ -4,7 +4,7 @@ import { Actions } from '../redux/actions';
 import { Coordinates, RequestData } from './types';
 
 interface RequestParams {
-  query: string;
+  query?: string;
   category?: string;
   location?: string | Coordinates;
 }
@@ -16,6 +16,7 @@ const token =
 const client = new GraphQLClient(ENDPOINT, {
   headers: {
     authorization: 'Bearer ' + token,
+    'Accept-Language': 'en_US'
   },
 });
 
@@ -55,9 +56,10 @@ function createRequestQuery(params: RequestParams): string {
 
   const locationStr = createLocationQuery(params.location);
   const categoryStr = params.category ? `categories: "${params.category}"` : '';
+  const termStr = params.query ? `term: "${params.query}"` : ''
   return gql`
     {
-      search(term: "${params.query}"
+      search(${termStr}
         ${locationStr}
         ${categoryStr}
         limit: 10) {
